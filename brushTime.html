@@ -12,6 +12,7 @@
             height: 100vh;
             background-color: black;
             flex-direction: column;
+            margin-top: -200px;
         }
         
         
@@ -21,7 +22,8 @@
             width: 100px;
             height: 50px;
             font-size: 20px;
-            
+            margin-top: -250px;
+                        
             
         }
         
@@ -35,11 +37,12 @@
         <!-- Group to hold the squares -->
         <g id="squares"></g>
     </svg>
-    <button onclick="brushTimer(evenDay())">Start</button>
+    <button id="button">Start</button>
     <script>
         // Get references to the path and the group
         const path = document.getElementById('path');
         const squaresGroup = document.getElementById('squares');
+        const button= document.getElementById("button");
 
         // Define the number of squares
         const numSquares = 14;
@@ -131,32 +134,39 @@
             }
         }
 
-        async function brushTimer(flip=false){
+        async function brushTimer(){
             let time=(60*1000)/(numSquares*3);
-            let fbFlip=false
-            let mFlip=true
-
-            let values=[[0,(numSquares/2)],[(numSquares/2),numSquares]]
+            let flip=false
             
-            if(flip){
+            
+            let values=[[0,(numSquares/2)],[(numSquares/2),numSquares]]
+            let days=daysFromEpoch();
+            let days4=days%4
+
+            if(days4%2!=0){
                 values=[[(numSquares/2),numSquares],values[0]]
-                fbFlip=!fbFlip
-                mFlip=!mFlip
+                flip=!flip
+            }
+
+            let buttonText=["Lower","Upper"]
+            if(days4>1){
+                buttonText=[buttonText[1],buttonText[0]]
             }
             
-            
             for(let i=0;i<2;i++){
-                
+                button.textContent=buttonText[i]
+
                 for(let y=0;y<2;y++){
                     let from=values[y][0]
                     let to=values[y][1]
-                    await loopTroughSide("f",time,from,to,fbFlip);
-                    await loopTroughSide("m",time,from,to,mFlip);
-                    await loopTroughSide("b",time,from,to,fbFlip);
+                    await loopTroughSide("f",time,from,to,flip);
+                    await loopTroughSide("m",time,from,to,!flip);
+                    await loopTroughSide("b",time,from,to,flip);
                 }
                 await reset();
                 
             }
+            button.textContent="Start"
         }
 
         function reset(){
@@ -164,18 +174,17 @@
             teeth.forEach(tooth => tooth.setAttribute('fill', 'white'));
         }
 
-        function evenDay(){
+        function daysFromEpoch(){
             const msSinceEpoch=Date.now();
             const msInADay=1000*60*60*24;
             const daysSinceEpoch= Math.floor(msSinceEpoch/msInADay);
-
-            if(daysSinceEpoch%2==0){
-                return true;
-            }
-            else{
-                return false;
-            }
+            return daysSinceEpoch
         }
+        button.addEventListener("click",()=>{
+            
+            brushTimer()
+
+        })
         
     </script>
 </body>
