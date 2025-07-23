@@ -20,7 +20,7 @@ for (let i = 0; i < numSquares; i++) {
 
     
     let angle;
-    // since there are no point before the first square, we need to set the angle manually
+    // since there are no point before the first square angle is set to -90
     if(i==0){
         angle=-90
         
@@ -70,11 +70,10 @@ function createToothPart(width,height,rx,point,y,angle){
 async function loopTroughSide(type,time,from=0,to=numSquares,reverse=false,color="green"){
     let tooth;
     let i=from;
-    let loop=true;
     let r=to-1;
     let typeNumber=i;
+    while((r >=from) && (i<= to-1)) {
 
-    while(loop==true){
         if(reverse){
             typeNumber=r;
             r--;
@@ -83,10 +82,6 @@ async function loopTroughSide(type,time,from=0,to=numSquares,reverse=false,color
             typeNumber=i;
             i++;
         }
-        if((r<from-1)||(i>to)){
-                loop=false;
-                break;
-        }  
         tooth = document.getElementById(`${type}${typeNumber}`);
         tooth.setAttribute('fill', `${color}`);
         await new Promise(resolve => setTimeout(resolve, time));
