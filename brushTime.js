@@ -12,25 +12,19 @@ const pathLength = path.getTotalLength();
 // Create squares and position them along the path
 for (let i = 0; i < numSquares; i++) {
     // Calculates point by multiplying the index by t of the path length
-
     const t = i / (numSquares - 1);
-    
     const lengthAtT = t * pathLength;
     const point = path.getPointAtLength(lengthAtT);
-
-    
     let angle;
     // since there are no point before the first square angle is set to -90
     if(i==0){
         angle=-90
-        
     } else {
         // For the last square, use a backward delta
         const prevPoint = path.getPointAtLength(lengthAtT-1);
         // calculate the the angle between the points and 180/Math.PI is to convert radians to degrees
         angle = Math.atan2(point.y - prevPoint.y, point.x - prevPoint.x) * (180 / Math.PI);
     }
-
     const sideHeight=13;
     const middleHeight=24;
     const toothWidth=50
