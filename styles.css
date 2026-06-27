@@ -2,20 +2,32 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background-color: black;
     flex-direction: column;
-    margin-top: -200px;
 }
 
-
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    margin-top: 12vh;
+    
+    
+}
 button{
     background-color:green;
     color:white;
     width: 100px;
     height: 50px;
+    margin-top:10%;
     font-size: 20px;
-    margin-top: -250px;
-                
-    
+    position:absolute;
+    z-index: 1;
+}
+
+svg{
+    width: 70vw;
+    height: 70vh;
 }
