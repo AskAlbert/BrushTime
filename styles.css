@@ -12,9 +12,7 @@ body {
     align-items: center;
     flex-direction: column;
     position: relative;
-    margin-top: 12vh;
-    
-    
+    margin-top: 12vh; 
 }
 button{
     background-color:green;
@@ -30,4 +28,19 @@ button{
 svg{
     width: 70vw;
     height: 70vh;
+}
+@media (max-width: 1000px) {
+    #container {
+        margin-top: 25vh; 
+    }
+    svg {
+        width: 90vw;
+        height: 50vh;
+    }
+}
+@media (max-width: 600px) {
+    svg {
+        width: 100vw;
+        height: 38vh;
+    }
 }
